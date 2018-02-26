@@ -43,12 +43,16 @@ repositories {
 
 dependencies {
 	compile("org.springframework.boot:spring-boot-starter-web")
-	compile("org.springframework.boot:spring-boot-starter-data-jpa")
+	compile("org.springframework.boot:spring-boot-starter-data-jpa:1.5.10.RELEASE")
+	runtime("org.springframework.boot:spring-boot-devtools")
 	compile("com.h2database:h2")
 	compile("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 	compile("org.jetbrains.kotlin:kotlin-reflect")
 	compile("com.fasterxml.jackson.module:jackson-module-kotlin")
-	testCompile("org.springframework.boot:spring-boot-starter-test") {
+    compile("mysql:mysql-connector-java")
+
+
+    testCompile("org.springframework.boot:spring-boot-starter-test") {
 		exclude(module = "junit")
 	}
 	testCompile("org.junit.jupiter:junit-jupiter-api")
