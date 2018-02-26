@@ -26,7 +26,7 @@ class SkinDataController {
 
 
     @GetMapping("profile/{playerUUID}")
-    fun findByPlayerUUID(@PathVariable playerUUID: String): ProfileSkinResponse = skinDataRepository.findSkinByPlayerUUID(playerUUID)!!
+    fun findByPlayerUUID(@PathVariable playerUUID: String): ProfileSkinResponse = skinDataRepository.findSkinByPlayerUUID(playerUUID)?: throw Exception("No data with this entity available")
 
 
     @GetMapping("profile/name/{name}")
@@ -36,7 +36,6 @@ class SkinDataController {
     @GetMapping("profile/")
     fun findAll(): Iterable<ProfileSkinResponse> = skinDataRepository.findAll()
 
-    // {"playerUUID":"00000000-0000-001e-0000-00000000012c","name":"ysl3000","properties":[{"name":"textures","value":"base64","signature":""}]}
     @PostMapping("profile/")
     fun addSkinData(@RequestBody profileSkinResponse: ProfileSkinResponse): ResponseEntity<ProfileSkinResponse>? {
 
