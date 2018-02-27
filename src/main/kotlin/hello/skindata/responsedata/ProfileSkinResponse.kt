@@ -1,6 +1,7 @@
 package hello.skindata.responsedata
 
 import com.fasterxml.jackson.annotation.JsonIgnore
+import java.io.Serializable
 import javax.persistence.*
 
 /**
@@ -20,4 +21,4 @@ data class ProfileSkinResponse(
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         @Id
         val id: Long = 0
-)
+)  : Serializable

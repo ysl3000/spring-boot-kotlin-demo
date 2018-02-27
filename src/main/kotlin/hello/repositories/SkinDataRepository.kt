@@ -1,4 +1,4 @@
-package hello.skindata.repositories
+package hello.repositories
 
 import hello.skindata.responsedata.ProfileSkinResponse
 import org.springframework.data.repository.CrudRepository

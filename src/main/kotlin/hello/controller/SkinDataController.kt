@@ -1,11 +1,13 @@
-package hello.skindata
+package hello.controller
 
 import hello.Application
-import hello.skindata.repositories.SkinDataRepository
+import hello.repositories.SkinDataRepository
 import hello.skindata.responsedata.ProfileSkinResponse
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.http.ResponseEntity
+import org.springframework.cache.annotation.CacheEvict
+import org.springframework.cache.annotation.CachePut
+import org.springframework.cache.annotation.Cacheable
 import org.springframework.web.bind.annotation.*
 
 
@@ -14,30 +16,33 @@ import org.springframework.web.bind.annotation.*
  */
 
 @RestController
-@RequestMapping("session/minecraft/")
+@RequestMapping("session/minecraft/profile")
 class SkinDataController {
     @Autowired
     private lateinit var skinDataRepository: SkinDataRepository
     private val log = LoggerFactory.getLogger(Application::class.java)
 
 
-    @GetMapping("profile/delete")
+    @CacheEvict(value = ["skin-list"])
+    @GetMapping("/delete")
     fun deleteAll()= skinDataRepository.deleteAll()
 
 
-    @GetMapping("profile/{playerUUID}")
+    @Cacheable(value = ["skin-single"],key = "#playerUUID", unless = "#result==null")
+    @GetMapping("/{playerUUID}")
     fun findByPlayerUUID(@PathVariable playerUUID: String): ProfileSkinResponse = skinDataRepository.findSkinByPlayerUUID(playerUUID)?: throw Exception("No data with this entity available")
 
-
-    @GetMapping("profile/name/{name}")
+    @Cacheable(value = ["skin-list"],key = "#name")
+    @GetMapping("/name/{name}")
     fun findByPlayerName(@PathVariable name: String): List<ProfileSkinResponse> = skinDataRepository.findSkinByName(name)
 
 
-    @GetMapping("profile/")
+    @GetMapping("/")
     fun findAll(): Iterable<ProfileSkinResponse> = skinDataRepository.findAll()
 
-    @PostMapping("profile/")
-    fun addSkinData(@RequestBody profileSkinResponse: ProfileSkinResponse): ResponseEntity<ProfileSkinResponse>? {
+    @CachePut(value= ["skin-single"],key = "#profileSkinResponse.playerUUID")
+    @PostMapping("/")
+    fun addSkinData(@RequestBody profileSkinResponse: ProfileSkinResponse): ProfileSkinResponse? {
 
 
         val exist = skinDataRepository.findSkinByPlayerUUID(playerUUID = profileSkinResponse.playerUUID)
@@ -46,7 +51,7 @@ class SkinDataController {
 
         if (exist != null) {
             throw Exception("Skin Profile is already in db")
-        } else return ResponseEntity.ok(skinDataRepository.save(profileSkinResponse))
+        } else return skinDataRepository.save(profileSkinResponse)
     }
 
 }

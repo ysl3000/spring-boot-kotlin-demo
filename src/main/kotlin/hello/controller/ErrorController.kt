@@ -1,4 +1,4 @@
-package hello.error
+package hello.controller
 
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity

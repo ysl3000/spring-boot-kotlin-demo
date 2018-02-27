@@ -43,6 +43,7 @@ repositories {
 
 dependencies {
 	compile("org.springframework.boot:spring-boot-starter-web")
+	compile("org.springframework.boot:spring-boot-starter-data-redis")
 	compile("org.springframework.boot:spring-boot-starter-data-jpa:1.5.10.RELEASE")
 	runtime("org.springframework.boot:spring-boot-devtools")
 	compile("com.h2database:h2")
@@ -50,6 +51,9 @@ dependencies {
 	compile("org.jetbrains.kotlin:kotlin-reflect")
 	compile("com.fasterxml.jackson.module:jackson-module-kotlin")
     compile("mysql:mysql-connector-java")
+    compile("redis.clients:jedis:2.9.0")
+    compile("io.springfox:springfox-swagger2:2.7.0")
+    compile("io.springfox:springfox-swagger-ui:2.7.0")
 
 
     testCompile("org.springframework.boot:spring-boot-starter-test") {
