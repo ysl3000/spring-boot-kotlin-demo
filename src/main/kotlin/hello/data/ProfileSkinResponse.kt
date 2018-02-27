@@ -1,4 +1,4 @@
-package hello.skindata.responsedata
+package hello.data
 
 import com.fasterxml.jackson.annotation.JsonIgnore
 import java.io.Serializable

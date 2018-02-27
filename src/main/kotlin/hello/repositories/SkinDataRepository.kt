@@ -1,6 +1,6 @@
 package hello.repositories
 
-import hello.skindata.responsedata.ProfileSkinResponse
+import hello.data.ProfileSkinResponse
 import org.springframework.data.repository.CrudRepository
 import org.springframework.stereotype.Repository
 

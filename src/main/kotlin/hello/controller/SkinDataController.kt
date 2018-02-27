@@ -2,7 +2,7 @@ package hello.controller
 
 import hello.Application
 import hello.repositories.SkinDataRepository
-import hello.skindata.responsedata.ProfileSkinResponse
+import hello.data.ProfileSkinResponse
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.cache.annotation.CacheEvict
